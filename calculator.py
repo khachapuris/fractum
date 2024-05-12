@@ -880,6 +880,12 @@ class Calculator:
 				["'+v", '√x'], ["'", 'greek'],
 				['/', 'fraction'], ['=', 'answer']]
 	
+	funcpad_greek = [['q:', 'θ'], ['w:', 'ω'], ['e:', 'ε'], ['r:', 'ρ'], ['t:', 'τ'],
+			['y:', 'ψ'], ['u:', 'υ'], ['i:', 'ι'], ['o:', 'ο'], ['p:', 'π'], ['a:', 'α'],
+			['s:', 'σ'], ['d:', 'δ'], ['f:', 'φ'], ['g:', 'γ'], ['h:', 'η'], ['k:', 'κ'],
+			['l:', 'λ'], ['z:', 'ζ'], ['x:', 'χ'], ['c:', 'ξ'], ['b:', 'β'], ['n:', 'ν'],
+			['m:', 'μ'], [';', 'ς'], ['', ''], ['v:', '√'], ['V:', '∛']]
+	
 	def __init__(self, stdscr):
 		"""The initialiser of the class.
 		
@@ -991,6 +997,8 @@ class Calculator:
 				self.stln = 'Enter: go out of fraction,  Up: go to numerator'
 			else:
 				self.stln = 'Enter: see the answer'
+		elif self.mode == 'insert':
+			self.stln = 'Key: greek letter,  Shift-key: capital greek letter  (hints below)'
 		elif self.mode == 'help':
 			self.stln = 'Up/Down: scroll,  any key: get back'
 		elif self.mode == 'final':
@@ -1285,6 +1293,8 @@ class Calculator:
 		a, b = self.cursor_tuple
 		if key in self.insert:
 			self.eqn_addstr(a, b, self.insert[key])
+		elif key == 'KEY_RESIZE':
+			return None
 		self.mode = 'normal'
 	
 	def help_mode_read(self, key):
@@ -1420,32 +1430,35 @@ class Calculator:
 		"""Print the keyboard shortcuts on the screen."""
 		maxy, maxx = self.scr.getmaxyx()
 		rows = 2
-		cols = (len(self.funcpad) + (rows - 1)) // rows + 1
+		funcpad = self.funcpad
+		if self.mode == 'insert':
+			funcpad = self.funcpad_greek
+		cols = (len(funcpad) + (rows - 1)) // rows + 1
 		total = 0
 		for x in range(cols - 1):
 			lens = []
 			for y in range(rows):
-				leny = len(self.funcpad[rows * x + y][0])
-				leny += len(self.funcpad[rows * x + y][1])
+				leny = len(funcpad[rows * x + y][0])
+				leny += len(funcpad[rows * x + y][1])
 				lens.append(leny)
 			total += max(lens)
 		space = (maxx - total) // cols
 		if space < 3:
 			return None
-		x = space - 1
+		x = (maxx - space * cols - total) // 2 + space
 		for s in range(cols - rows + 1):
 			lens = []
 			for t in range(rows):
-				lens.append(self.print_func(maxy - rows + t, x, s * rows + t))
+				lens.append(self.print_func(maxy - rows + t, x, s * rows + t, funcpad))
 			x += max(lens) + space
 		try:
 			s += 1
 			for t in range(rows):
-				lens.append(self.print_func(maxy - rows + t, x, s * rows + t))
+				lens.append(self.print_func(maxy - rows + t, x, s * rows + t, funcpad))
 		except IndexError:
 			pass
 	
-	def print_func(self, y, x, n):
+	def print_func(self, y, x, n, funcpad):
 		"""Print one keyboard shortcut on the screen.
 		
 		Arguments:
@@ -1453,7 +1466,7 @@ class Calculator:
 		n -- number of shortcut
 		shift -- start of the shortcut
 		"""
-		pf = self.funcpad[n]
+		pf = funcpad[n]
 		self.scr.addstr(y, x - 1, pf[0], curses.color_pair(3))
 		self.scr.addstr(y, x + len(pf[0]), pf[1], curses.color_pair(2))
 		return len(pf[0]) + len(pf[1])
