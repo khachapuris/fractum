@@ -999,7 +999,7 @@ class Calculator:
 	def usr_input(self):
 		"""Wait for the user to press a key and analise it."""
 		key = self.scr.getkey()
-		if self.ctrl_read(key):
+		if self.command_read(key):
 			pass
 		elif self.mode == 'normal':
 			self.arrows_read(key)
@@ -1024,7 +1024,7 @@ class Calculator:
 			self.eqn[a] = self.eqn[a][:b-1] + string + self.eqn[a][b-1:]
 		self.cursor_num += len(string)
 	
-	def ctrl_read(self, key):
+	def command_read(self, key):
 		"""Run command by key."""
 		if len(key) != 1:
 			return None
