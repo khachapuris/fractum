@@ -1661,11 +1661,11 @@ class Calculator:
 		line = re.sub(r'"[^"]*"', '%', line)
 		# find all function exponentiation
 		for f in ['sin', 'cos', 'tg', 'ctg', 'tan', 'cot']:
-			line = re.sub(f+r'\s*\^\s*([0-9.]+)', f+r'_ \1 ;', line)
+			line = re.sub(f+r'\s*\^\s*([0-9.]+)', f+r'_ \1 |', line)
 			for v in list(self.vars | self.vals):
 				if v not in line:
 					continue
-				line = re.sub(f+r'\s*\^\s*('+v+')', f+r'_ \1 ;', line)
+				line = re.sub(f+r'\s*\^\s*('+v+')', f+r'_ \1 |', line)
 			line = re.sub(f+r'\s*\^', f+'_ ', line)
 		# work with names:
 		for v in list(self.vars | self.vals):
@@ -1691,8 +1691,8 @@ class Calculator:
 		line = re.sub(r'\)\s*([0-9.]+)', r')@\1', line)
 		# insert @ between brackets
 		line = re.sub(r'\)\s*\(', r')@(', line)
-		# omit all ';'
-		#line = re.sub(r';', r' ', line)
+		# omit all '|'
+		line = re.sub(r'\|', r' ', line)
 		# unificate the number of spaces
 		line = re.sub(r'(['+Calculator.oper_regexp+'()])', r' \1 ', line)
 		line = re.sub(r'\s+', r' ', line)
