@@ -8,17 +8,17 @@ Fractum helps you to perform difficult calculations with roots, fractions and un
 
 ## Features
 
-- **Provide useful data storage objects**
+- **Data storage objects**
     - Fixed point decimal numbers
     - Unit values, including angles
     - Vectors support
-- **Perform various operations**
+- **Various operations**
     - Addition, subtraction, multiplication and division
     - Exponentiation, square and cube roots
     - Horizontal fraction bars
     - Trigonometric and other mathematical functions
     - A few extraordinary functions, such as prime factorisation and compound mass
-- **Comfortable interface**
+- **Interface elements**
     - Built-in detailed documentation
     - Answer representation switcher
     - Shortcuts for common actions, such as parenthesising
