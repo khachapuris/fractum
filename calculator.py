@@ -682,7 +682,7 @@ class Calculator:
 				'pf': Operator.PF,   'unit': Operator.UNIT,
 				'sum': Operator.SUM, 'average': Operator.AVERAGE,
 				'norm': Operator.NORM}
-	oper_regexp = '+\-*:^~√∛/@$'
+	oper_regexp = r'+\-*:^~√∛/@$'
 	helptext = [" " * 66,
 	"# Welcome to the fractum manual!                                  ",
 	"Fractum is a command line scientific calculator. It is designed to",
@@ -1002,7 +1002,7 @@ class Calculator:
 		elif self.mode == 'help':
 			self.stln = 'Up/Down: scroll,  any key: get back'
 		elif self.mode == 'final':
-			self.stln = 'Backspace: get back,  Space: change answer form,  any key: exit'
+			self.stln = 'Backspace: get back,  Space: answer form,  Enter: new,  any key: exit'
 	
 	def usr_input(self):
 		"""Wait for the user to press a key and analise it."""
@@ -1317,6 +1317,8 @@ class Calculator:
 			self.ansmode = 0
 		elif key == ' ':
 			self.ansmode = (self.ansmode + 1) % 3
+		elif key == '\n':
+			self.command_read(curses.ascii.ctrl('N'))
 		elif key != 'KEY_RESIZE':
 			self.quit()
 	
@@ -1609,7 +1611,7 @@ class Calculator:
 	
 	def check_sq_brackets(self):
 		"""Check the equation for unmatched square brackets."""
-		ps = re.findall('[\[\]]', ''.join(self.eqn))
+		ps = re.findall(r'[\[\]]', ''.join(self.eqn))
 		stack = 0
 		for p in ps:
 			if p == ']':
@@ -1651,11 +1653,11 @@ class Calculator:
 		# delete unary '+' at start of the string
 		line = re.sub(r'\A\s*\+', r'', line)
 		# delete unary plus after an operator symbol
-		line = re.sub(r'(['+Calculator.oper_regexp+'(;])\s*\+', r'\1', line)
+		line = re.sub(r'(['+Calculator.oper_regexp+r'(;])\s*\+', r'\1', line)
 		# replace unary '-' at start of the string
 		line = re.sub(r'\A\s*-', r'~', line)
 		# replace unary '-' after an operator symbol
-		line = re.sub(r'(['+Calculator.oper_regexp+'(;])\s*-', r'\1~', line)
+		line = re.sub(r'(['+Calculator.oper_regexp+r'(;])\s*-', r'\1~', line)
 		# find all strings
 		strings = re.findall(r'"[^"]*"', line)
 		line = re.sub(r'"[^"]*"', '%', line)
@@ -1694,7 +1696,7 @@ class Calculator:
 		# omit all '|'
 		line = re.sub(r'\|', r' ', line)
 		# unificate the number of spaces
-		line = re.sub(r'(['+Calculator.oper_regexp+'()])', r' \1 ', line)
+		line = re.sub(r'(['+Calculator.oper_regexp+r'()])', r' \1 ', line)
 		line = re.sub(r'\s+', r' ', line)
 		# insert omitted strings
 		for s in strings:
