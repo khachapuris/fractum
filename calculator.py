@@ -692,7 +692,7 @@ class Calculator:
 	"Fractum is a command line scientific calculator. It is designed to",
 	"display mathematical equations as if they were written on paper.  ",
 	"To do this, it has horizontal fraction bars and allows you to omit",
-	"parentheses  when  calling  a  function  (more  on  this  below). ",
+	"parentheses when calling a function (more on this below).         ",
 	"                                                                  ",
 	"The manual is made up of several topics, marked with '#'.         ",
 	"Some information is wrapped into columns for better readability.  ",
@@ -705,7 +705,7 @@ class Calculator:
 	"top line                   name and version                       ",
 	"answer status              type and form of the answer            ",
 	"status line                key suggestions                        ",
-	"main calculator area       equation and answer / manual           ",
+	"main calculator area       expression and answer / manual         ",
 	"three bottom lines         keyboard shortcuts                     ",
 	"                                                                  ",
 	"# Working with data                                               ",
@@ -821,7 +821,7 @@ class Calculator:
 	"{key}       {command}                                             ",
 	"?           help                                                  ",
 	"Ctrl-x      exit                                                  ",
-	"Ctrl-n      new equation                                          ",
+	"Ctrl-n      new expression                                        ",
 	"Enter, =    show the answer                                       ",
 	"Space       change answer notation    } only after Enter, =       ",
 	"'           toggle greek alphabet letter input                    ",
@@ -834,8 +834,8 @@ class Calculator:
 	"▾           go to the end of the denomenator from numerator       ",
 	"Ctrl-◂      go back one number                                    ",
 	"Ctrl-▸      go forward one number                                 ",
-	"Home        go to the beginning of the equation                   ",
-	"End         go to the end of the equation                         ",
+	"Home        go to the beginning of the expression                 ",
+	"End         go to the end of the expression                       ",
 	"                                                                  ",
 	"Bsp         delete the character to the left of the cursor        ",
 	"Ctrl-Bsp    delete last number or fraction                        ",
@@ -881,7 +881,7 @@ class Calculator:
 	"                                                                  "]
 	
 	funcpad = [[' ?', 'help'], ['^X', 'exit'],
-				['^N', 'new equation'], ['^P', 'parenthise all'],
+				['^N', 'new expression'], ['^P', 'parenthise all'],
 				['Shift-2', 'x^2'], ['Shift-3', 'x^3'], 
 				['Shift-4', 'x*10^y'], ['Shift-5', 'a°'],
 				["'+v", '√x'], ["'", 'greek'],
@@ -919,7 +919,7 @@ class Calculator:
 		self.vals = {'π': gl_pi, 'e': gl_e} | Unit.si_units()
 		self.vals |= {'°': Angle.usr_init(1, 'degree')}
 		
-		# initialise the equation
+		# initialise the expression
 		self.mode = 'normal'
 		self.eqn = [' ']
 		self.coordlist = [(0, self.col)]
@@ -959,7 +959,7 @@ class Calculator:
 		self.error_col = curses.COLOR_RED
 		# - title and statusline color
 		curses.init_pair(1, self.backgr_col, self.style_col)
-		# - equation color
+		# - expression color
 		curses.init_pair(2, self.txt_col, self.backgr_col)
 		# - answer color
 		curses.init_pair(3, self.style_col, self.backgr_col)
@@ -997,7 +997,7 @@ class Calculator:
 			if self.new:
 				self.stln = 'Welcome to fractum! Press (?) for help'
 			elif self.eqn == [' ']:
-				self.stln = 'Write an equation'
+				self.stln = 'Write an expression'
 			elif self.cursor_tuple[0] % 3 == 1:  # in numerator
 				self.stln = 'Enter, Down: go to denomenator'
 			elif self.cursor_tuple[0] % 3 == 2:  # in denomenator
@@ -1027,7 +1027,7 @@ class Calculator:
 			self.final_mode_read(key)
 	
 	def eqn_addstr(self, a, b, string):
-		"""Insert a string in the calculator's equation.
+		"""Insert a string in the calculator's expression.
 		
 		Arguments:
 		a, b -- position of insertion
@@ -1074,7 +1074,7 @@ class Calculator:
 		return True
 	
 	def normal_mode_read(self, key):
-		"""Change the equation according to key for normal mode."""
+		"""Change the expression according to key for normal mode."""
 		a, b = self.cursor_tuple
 		if key in self.keys or key.isalpha():
 			self.eqn_addstr(a, b, key)
@@ -1202,7 +1202,7 @@ class Calculator:
 		self.cursor_num -= 1
 	
 	def underscore(self):
-		"""Insert a 'forgotten' fraction bar in the equation."""
+		"""Insert a 'forgotten' fraction bar in the expression."""
 		if len(self.eqn) % 3 == 1:
 			for i in range(len(self.eqn[-1])):
 				if self.eqn[-1][i] not in ' ^*:+-':
@@ -1359,14 +1359,14 @@ class Calculator:
 		"""Print a string on the screen.
 		
 		Arguments:
-		y, x -- position according to the equation start position
+		y, x -- position according to the expression start position
 		msg -- a string to print
 		color -- number of text's color_pair (default=2)
 		"""
 		self.scr.addstr(self.line + y, x, msg, curses.color_pair(color))
 	
 	def coordlist_update(self):
-		"""Change the positions of the equation pieces."""
+		"""Change the positions of the expression pieces."""
 		p = self.del_last_space
 		coordlist = []
 		x = self.col
@@ -1404,7 +1404,7 @@ class Calculator:
 		if self.debug:
 			self.print_debug()  # HELP
 		try:
-			self.print_equation()
+			self.print_expression()
 			if self.mode == 'final':
 				self.print_answer()
 				self.scr.refresh()
@@ -1483,7 +1483,7 @@ class Calculator:
 	def print_answer_mode(self):
 		"""Print the answer mode switcher on the screen."""
 		if self.mode != 'final':
-			self.scr.addstr(1, 5, 'equation', curses.color_pair(3))
+			self.scr.addstr(1, 5, 'expression', curses.color_pair(3))
 			return None
 		def col_pair(n):
 			if self.ansmode == n:
@@ -1531,8 +1531,8 @@ class Calculator:
 		except Exception:
 			pass
 	
-	def print_equation(self):
-		"""Print the equation on the calculator screen."""
+	def print_expression(self):
+		"""Print the expression on the calculator screen."""
 		p = self.del_last_space
 		for s in range(len(self.eqn)):
 			y, x = self.coordlist[s]
@@ -1595,7 +1595,7 @@ class Calculator:
 		self.scr.move(y, x)
 	
 	def check_names(self):
-		"""Check the equation for unknown names."""
+		"""Check the expression for unknown names."""
 		words = re.findall('[a-z]+', ''.join(self.eqn))
 		for word in words:
 			if word not in list(Calculator.operdict | self.vars | self.vals):
@@ -1603,7 +1603,7 @@ class Calculator:
 		return ''
 	
 	def check_parentheses(self):
-		"""Check the equation for unmatched parenthesses."""
+		"""Check the expression for unmatched parenthesses."""
 		ps = re.findall('[()]', ''.join(self.eqn))
 		stack = 0
 		for p in ps:
@@ -1617,7 +1617,7 @@ class Calculator:
 		return stack == 0
 	
 	def check_sq_brackets(self):
-		"""Check the equation for unmatched square brackets."""
+		"""Check the expression for unmatched square brackets."""
 		ps = re.findall(r'[\[\]]', ''.join(self.eqn))
 		stack = 0
 		for p in ps:
@@ -1631,7 +1631,7 @@ class Calculator:
 		return stack == 0
 	
 	def simple_notation(self):
-		"""Transform the equation into a string.
+		"""Transform the expression into a string.
 		
 		Output syntax:
 		+ - * : -- arithmetic operators
@@ -1766,7 +1766,7 @@ class Calculator:
 		return output + oper_stack[::-1]
 	
 	def ans_calc(self):
-		"""Calculate the answer of current equation."""
+		"""Calculate the answer of current expression."""
 		line = self.simple_notation()
 		if not self.check_parentheses():
 			return '$unmatched parentheses'
