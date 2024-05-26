@@ -635,6 +635,7 @@ class Operator(Enum):
 	UNIT = (Unit.usr_init, 5, 1, 1)
 	
 	FCTR = (fctr, 5, 1, 1)
+	R_FCTR = (fctr, 5, 1, 0)
 	C = (lambda g: C(g[0], g[1]), 5, 1, 1)
 	P = (lambda g: P(g[0], g[1]), 5, 1, 1)
 	
@@ -681,10 +682,11 @@ class Calculator:
 				'ln': Operator.LN,    'mass': Operator.MASS,
 				'comb': Operator.C,   'perm': Operator.P, 
 				'fctr': Operator.FCTR,'pf': Operator.PF,
+				'!': Operator.R_FCTR,
 				'unit': Operator.UNIT,'angle': Operator.ANGLE,
 				'sum': Operator.SUM,  'average': Operator.AVERAGE,
 				'norm': Operator.NORM}
-	oper_regexp = r'+\-*:^~√∛/@$'
+	oper_regexp = r'+\-*:^~√∛/@$!'
 	helptext = [" " * 66,
 	"# Welcome to the fractum manual!                                  ",
 	"Fractum is a command line scientific calculator. It is designed to",
@@ -765,6 +767,7 @@ class Calculator:
 	"*           (*)            multiplication sign                    ",
 	":           (:)            division sign                          ",
 	"^, **       (^),(**)       exponentiation sign                    ",
+	"!           (!)            factorial                              ",
 	"(, )        '(', ')'       parentheses                            ",
 	"/                          horisontal fraction bar                ",
 	"                                                                  ",
@@ -776,6 +779,7 @@ class Calculator:
 	"implicit multiplication    4                                      ",
 	"unary minus                5                                      ",
 	"exponentiation, roots      6                                      ",
+	"factorial                  7                                      ",
 	"fraction bar               --                                     ",
 	"                                                                  ",
 	"# Functions                                                       ",
@@ -946,7 +950,7 @@ class Calculator:
 		self.insert |= {t.upper(): capgreek(t) for t in self.insert}
 		self.insert |= {'v': '√', 'V': '∛', ';': 'ς'}
 		# - keys to insert directly
-		self.keys = '0.,123456789()[]"*+-^:; '
+		self.keys = '0.,123456789()[]"*+-^!:; '
 		
 		# initialise the calculator's theme
 		self.txt_col = curses.COLOR_WHITE
