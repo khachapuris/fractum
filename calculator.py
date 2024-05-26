@@ -166,7 +166,7 @@ def fctr(n):
 		ans *= (t + 1)
 	return Dec(ans)
 
-def A(n, k):
+def P(n, k):
 	ans = 1
 	k = int(k)
 	for a in range(k):
@@ -174,7 +174,7 @@ def A(n, k):
 	return Dec(ans)
 
 def C(n, k):
-	return A(n, k) / fctr(k)
+	return P(n, k) / fctr(k)
 
 class AttributeSet:
 	"""A class for keeping attributes."""
@@ -603,12 +603,12 @@ class Operator(Enum):
 	# NAME = (calc, pref, arg_num, left)
 	PLUS = (lambda a, b: a + b, 0, 2, 0)
 	MINUS = (lambda a, b: a - b, 0, 2, 0)
-	MUL = (lambda a, b: a * b, 1, 2, 0)
+	MUL = (lambda a, b: a.dot(b) if type(a) is np.ndarray and type(b) is np.ndarray else a * b, 1, 2, 0)
 	DIV = (lambda a, b: a / b, 1, 2, 0)
 	SPACE = (lambda a, b: a * b, 2, 2, 1)
 	SQRT = (lambda x: x ** Dec('0.5'), 3, 1, 1)
 	CBRT = (lambda x: x ** (Dec('1') / Dec('3')), 3, 1, 1)
-	POW = (lambda a, b: a ** b, 3, 2, 1)
+	POW = (lambda a, b: sum(a ** b) if isinstance(a, np.ndarray) else a ** b, 3, 2, 1)
 	NEG = (lambda x: x.__neg__(), 3, 1, 1)
 	FRBAR = (lambda a, b: a / b, 4, 2, 0)
 	
@@ -636,6 +636,7 @@ class Operator(Enum):
 	
 	FCTR = (fctr, 5, 1, 1)
 	C = (lambda g: C(g[0], g[1]), 5, 1, 1)
+	P = (lambda g: P(g[0], g[1]), 5, 1, 1)
 	
 	SUM = (sum, 5, 1, 1)
 	AVERAGE = (lambda g: 0 if len(g) == 0 else sum(g) / Dec(len(g)), 5, 1, 1)
@@ -673,14 +674,15 @@ class Calculator:
 				'tg': Operator.TG,   'arctg': Operator.ARCTG,
 				'ctg': Operator.CTG, 'cot': Operator.CTG,
 				'tan': Operator.TG,  'arctan': Operator.ARCTG,
-				'abs': Operator.ABS, 'angle': Operator.ANGLE,
+				'abs': Operator.ABS,
 				'sin_': Operator.SINPOW, 'cos_': Operator.COSPOW,
 				'tg_': Operator.TGPOW,   'ctg_': Operator.CTGPOW,
 				'tan_': Operator.TGPOW,  'cot_': Operator.CTGPOW,
-				'ln': Operator.LN,   'mass': Operator.MASS,
-				'C': Operator.C,     'fctr': Operator.FCTR,
-				'pf': Operator.PF,   'unit': Operator.UNIT,
-				'sum': Operator.SUM, 'average': Operator.AVERAGE,
+				'ln': Operator.LN,    'mass': Operator.MASS,
+				'comb': Operator.C,   'perm': Operator.P, 
+				'fctr': Operator.FCTR,'pf': Operator.PF,
+				'unit': Operator.UNIT,'angle': Operator.ANGLE,
+				'sum': Operator.SUM,  'average': Operator.AVERAGE,
 				'norm': Operator.NORM}
 	oper_regexp = r'+\-*:^~√∛/@$'
 	helptext = [" " * 66,
@@ -801,7 +803,8 @@ class Calculator:
 	"pf          num -> str     prime factorisation                    ",
 	"mass        str -> num     calculate chemical compound mass       ",
 	"unit        str -> unit    create a unit                          ",
-	"C        num;num-> num     binomial coefficient                   ",
+	"comb     num;num-> num     number of combinations, C(n; k)        ",
+	"perm     num;num-> num     number of permutations, P(n; k)        ",
 	"sum      vector -> num     sum of given numbers                   ",
 	"average  vector -> num     arithmetic mean                        ",
 	"norm     vector -> num     sum of squares of given numbers        ",
@@ -1823,11 +1826,11 @@ class Calculator:
 			if ans.getpow('ang') != 1:
 				part = '$incorrect answer type: angle^'
 				ans = part + str(ans.getpow('ang'))
-			elif self.ansmode == 0:#self.anglemode == 'DEG':
+			elif self.ansmode == 0:  # 'DEG'
 				ans = str(ans.degree()) + '°'
-			elif self.ansmode == 1:#self.anglemode == 'RAD':
+			elif self.ansmode == 1:  # 'RAD'
 				ans = str(ans)
-			elif self.ansmode == 2:#self.anglemode == 'PIRAD':
+			elif self.ansmode == 2:  # 'PIRAD'
 				ans = 'π : ' + str(ans.pirad())
 		elif type(ans) is Unit:
 			return ans.smart_str(self.ansmode)
