@@ -1062,8 +1062,9 @@ class Calculator:
 			self.debug = not self.debug
 		elif key == curses.ascii.ctrl('N'):
 			ans = self.ans_calc()
-			num_types = (int, Angle, Dec, Unit)
-			if self.mode == 'final' and type(ans) in num_types:
+			num_types = (int, Angle, Dec, Unit, np.ndarray)
+			correct_type = type(ans) in num_types or (type(ans) is str and not ans.startswith('$'))
+			if self.mode == 'final' and correct_type:
 				self.vars |= {'ans': ans}
 			self.mode = 'normal'
 			self.ansmode = 0
@@ -1326,6 +1327,27 @@ class Calculator:
 			self.ansmode = (self.ansmode + 1) % 3
 		elif key == '\n':
 			self.command_read(curses.ascii.ctrl('N'))
+		elif key in '+-*:/^':
+			self.command_read(curses.ascii.ctrl('N'))
+			if 'ans' not in list(self.vars):
+				self.quit()
+			ans = self.vars['ans']
+			if isinstance(ans, str):
+				ans = f'"{ans}"'
+			else:
+				ans = self.ans_format(ans)
+				if isinstance(ans, tuple):
+					ans = 'ans'
+			if key == '^':
+				ans += '^ '
+			elif key == '/':
+				self.eqn = [' ', ans + ' ', ' ', ' ']
+				self.cursor_num = len(ans) + 3
+				return None
+			else:
+				ans += f' {key} '
+			self.eqn = [ans]
+			self.cursor_num = len(ans) + 3
 		elif key != 'KEY_RESIZE':
 			self.quit()
 	
