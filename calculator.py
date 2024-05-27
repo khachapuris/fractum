@@ -302,7 +302,7 @@ class Unit:
 		ans = ''
 		# time is measured in milliseconds
 		v = int(self.value * 1000)
-		year = 31557600000  # 365.25 days
+		year = 31556952000  # 365.2425 days
 		day, hour = 86400000, 3600000
 		minute, second = 60000, 1000
 		name_of = {year: 'year', day: 'day', hour: 'h'}
@@ -914,7 +914,7 @@ class Calculator:
 		# initialise fractum's memory
 		U = Unit.usr_init
 		self.vars = {'x': Dec(10),      'Vm': Dec('22.4'),
-			'day': U(Dec(86400), 's'),  'year': U(Dec(31557600), 's'),
+			'day': U(Dec(86400), 's'),  'year': U(Dec(31556952), 's'),
 			'c': Unit(Dec(299792458), {'m': 1, 's': -1})}
 		self.vals = {'π': gl_pi, 'e': gl_e} | Unit.si_units()
 		self.vals |= {'°': Angle.usr_init(1, 'degree')}
