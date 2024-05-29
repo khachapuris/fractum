@@ -1853,9 +1853,12 @@ class Calculator:
 		ans1 = self.ans_calc()
 		decimal.getcontext().prec += 5
 		ans2 = self.ans_calc()
-		if abs(ans1 / ans2) > 2:
-			return round(1 + ans2, gl_prec) - 1
-		return ans2
+		try:
+			if abs(ans1 / ans2) > 2:
+				return round(1 + ans2, gl_prec) - 1
+			return ans2
+		except Exception:
+			return ans2
 	
 	def ans_format(self, ans):
 		"""Transform ans to the required format."""
