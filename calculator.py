@@ -1584,7 +1584,7 @@ class Calculator:
 		p = self.del_last_space
 		y, x = self.coordlist[-1]
 		x += len(p(self.eqn[-1]))
-		ans = self.ans_format(self.ans_calc())
+		ans = self.ans_format(self.ans_get())
 		self.printeq(0, x, ' = ')
 		x += 3
 		if type(ans) is tuple:
@@ -1845,6 +1845,16 @@ class Calculator:
 			return '$function domain error'
 		except decimal.Overflow:
 			return '$large number'
+	
+	def ans_get(self):
+		"""Test the result using various precisions."""
+		decimal.getcontext().prec -= 5
+		ans1 = self.ans_calc()
+		decimal.getcontext().prec += 5
+		ans2 = self.ans_calc()
+		if abs(ans1 / ans2) > 2:
+			return round(1 + ans2, gl_prec) - 1
+		return ans2
 	
 	def ans_format(self, ans):
 		"""Transform ans to the required format."""
