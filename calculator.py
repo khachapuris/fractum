@@ -923,7 +923,6 @@ class Calculator:
 		# initialise the expression
 		self.mode = 'normal'
 		self.eqn = [' ']
-		self.coordlist = [(0, self.col)]
 		self.ansmode = 0
 		
 		# initialise the cursor
@@ -1388,7 +1387,8 @@ class Calculator:
 		"""
 		self.scr.addstr(self.line + y, x, msg, curses.color_pair(color))
 	
-	def coordlist_update(self):
+	@property
+	def coordlist(self):
 		"""Change the positions of the expression pieces."""
 		p = self.del_last_space
 		coordlist = []
@@ -1411,7 +1411,7 @@ class Calculator:
 			coordlist.append((0, x))
 			x += len(mainstr)
 			coordlist.append((-1, x + 1))
-		self.coordlist = coordlist
+		return coordlist
 	
 	def scr_update(self):
 		"""Update the calculator's screen."""
@@ -1903,7 +1903,6 @@ class Calculator:
 	def mainloop(self):
 		"""Interact with the user."""
 		while True:
-			self.coordlist_update()
 			self.cursor_update()
 			self.scr_update()
 			self.usr_input()
