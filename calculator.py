@@ -198,8 +198,9 @@ class Unit:
 		"""
 		self.units = units
 		self.value = value
-		
-	def usr_init(*kwards):
+	
+	@classmethod
+	def usr_init(cls, *args):
 		"""Get a Unit without using a dictionary.
 		
 		>>> Unit.usr_init(5, 'm')
@@ -207,7 +208,7 @@ class Unit:
 		"""
 		ansdict = {}
 		ansnum = Dec(1)
-		for u in kwards:
+		for u in args:
 			upow = 1
 			if type(u) in (int, Dec):
 				ansnum *= u
@@ -217,7 +218,7 @@ class Unit:
 				ansdict |= {u: upow}
 		if ansdict == {}:
 			return ansnum
-		return Unit(ansnum, ansdict)
+		return cls(ansnum, ansdict)
 	
 	def __str__(self):
 		ans = ''
