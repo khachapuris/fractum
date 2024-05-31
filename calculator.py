@@ -176,10 +176,6 @@ def P(n, k):
 def C(n, k):
 	return P(n, k) / fctr(k)
 
-class AttributeSet:
-	"""A class for keeping attributes."""
-	pass
-
 
 class Unit:
 	"""The creation of the Unit object and the related functionality."""
@@ -902,7 +898,6 @@ class Calculator:
 		stdscr -- the terminal screen
 		"""
 		self.name = 'fractum'
-		self.version = '1.4 '
 		self.stln = ''
 
 		# initialise the screen
@@ -931,11 +926,8 @@ class Calculator:
 		self.cursor_num = 1
 		self.cursor_tuple = (0, 1)
 
-		# store rare symbols used in the calculator
-		self.chars = AttributeSet()
-		self.chars.bar = '─'     # opt: '-'
-		self.chars.edge_l = '╶'  # opt: '─', '-', ' '
-		self.chars.edge_r = '╴'  # opt: '─', '-', ' '
+		# store fraction part symbols used in the calculator
+		self.fract = {'m': '─', 'l': '╶', 'r': '╴'}
 
 		# initialise keystroke input:
 		self.chem_mode = False  # capital letters input
@@ -1443,7 +1435,7 @@ class Calculator:
 	def print_title(self):
 		"""Print the calculator's title line on the screen."""
 		maxy, maxx = self.scr.getmaxyx()
-		name = self.name + ' ' + self.version
+		name = self.name
 		space = (maxx - len(name)) // 2
 		last = ' '
 		if maxx % 2 == len(name) % 2:
@@ -1570,10 +1562,10 @@ class Calculator:
 		y, x = self.coordlist[s]
 		mainstr, numstr, denomstr = p(self.eqn[s:s+3])
 		fractlen = max(len(numstr), len(denomstr)) + 2
-		middle = self.chars.bar * (fractlen - 2)
-		bar = self.chars.edge_l + middle + self.chars.edge_r
+		middle = self.fract['m'] * (fractlen - 2)
+		bar = self.fract['l'] + middle + self.fract['r']
 		if numstr == '' and denomstr == '':
-			bar = self.chars.edge_l + self.chars.bar
+			bar = self.fract['l'] + self.fract['m']
 		self.printeq(y, x + len(mainstr), bar)
 
 	def print_help(self):
@@ -1614,7 +1606,6 @@ class Calculator:
 		y = self.coordlist[a][0] + self.line
 		curses.curs_set(2)
 		if self.mode == 'insert':
-			#curses.curs_set(0)
 			self.scr.addstr("'")
 		self.scr.move(y, x)
 
