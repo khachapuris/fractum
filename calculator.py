@@ -498,7 +498,8 @@ class Unit:
 class Angle(Unit):
 	"""The creation of the Angle object and the related functionality."""
 
-	def usr_init(value, deg=False):
+	@classmethod
+	def usr_init(cls, value, deg=False):
 		"""Get an Angle without using a dictionary.
 
 		>>> Angle.usr_init(5)
@@ -507,9 +508,9 @@ class Angle(Unit):
 		Angle(0.0175)
 		"""
 		if deg:
-			return Angle(value / Dec(180) * gl_pi, {'ang': 1})
+			return cls(value / Dec(180) * gl_pi, {'ang': 1})
 		else:
-			return Angle(value, {'ang': 1})
+			return cls(value, {'ang': 1})
 
 	def init(self):
 		"""Change the angle if it is bigger than 2pi to equivalent."""
@@ -1864,7 +1865,7 @@ class Calculator:
 				return ans2
 			elif anscls in (Unit, Angle):
 				if ans2.value != 0 and abs(ans1 / ans2) > 2:
-					return anscls(0)
+					return anscls(Dec(0), ans1.units)
 				return ans2
 			elif anscls is np.ndarray:
 				new = []
