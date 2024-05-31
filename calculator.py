@@ -684,7 +684,7 @@ class Calculator:
 				'unit': Operator.UNIT,'angle': Operator.ANGLE,
 				'sum': Operator.SUM,  'average': Operator.AVERAGE,
 				'norm': Operator.NORM}
-	oper_regexp = r'+\-*:^~√∛/@$!'
+	oper_regexp = r'+\-*:^~√∛/@$'
 	helptext = [" " * 66,
 	"# Welcome to the fractum manual!                                  ",
 	"Fractum is a command line scientific calculator. It is designed to",
@@ -1694,7 +1694,7 @@ class Calculator:
 		for v in list(self.vars | self.vals):
 			if v not in line:
 				continue
-			orx = '([' + Calculator.oper_regexp + r'\(\)])'
+			orx = '([' + Calculator.oper_regexp + r'!\(\)])'
 			# insert default multiplication symbol (@) between numbers and names
 			line = re.sub(r'([0-9.]+)\s*'+v+r'([^a-zA-Z])', r'\1@'+v+r'\2', line)
 			# insert @ between a name and a root symbol
@@ -1717,7 +1717,7 @@ class Calculator:
 		# omit all '|'
 		line = re.sub(r'\|', r' ', line)
 		# unificate the number of spaces
-		line = re.sub(r'(['+Calculator.oper_regexp+r'()])', r' \1 ', line)
+		line = re.sub(r'(['+Calculator.oper_regexp+r'!()])', r' \1 ', line)
 		line = re.sub(r'\s+', r' ', line)
 		# insert omitted strings
 		for s in strings:
