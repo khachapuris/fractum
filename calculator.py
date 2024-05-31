@@ -56,30 +56,30 @@ def mass(cp):
 			if st not in table:
 				raise ValueError('incorrect compound name')
 			return table[st] * int(n)
-	
-	table = {'H': 1, 'Li': 7, 'Na': 23, 'K': 39, 'Rb': 85, 'Cs': 133, 'Fr': 223, 
-		'Be': 9, 'Mg': 24, 'Ca': 40, 'Sr': 88, 'Ba': 137, 'Ra': 226, 
-		'Sc': 45, 'Y': 89, 'La': 139, 'Ac': 227, 
-		'Ti': 48, 'Zr': 91, 'Hf': 178, 'Rf': 265, 
-		'V': 51, 'Nb': 93, 'Ta': 181, 'Db': 268, 
-		'Cr': 52, 'Mo': 96, 'W': 184, 'Sg': 271, 
-		'Mn': 55, 'Tc': 98, 'Re': 186, 'Bh': 272, 
-		'Fe': 56, 'Ru': 101, 'Os': 190, 'Hs': 270, 
-		'Co': 59, 'Rh': 103, 'Ir': 192, 'Mt': 276, 
-		'Ni': 59, 'Pd': 106, 'Pt': 195, 'Ds': 281, 
-		'Cu': 64, 'Ag': 108, 'Au': 197, 'Rg': 280, 
-		'Zn': 65, 'Cd': 112, 'Hg': 201, 'Cn': 285, 
-		'B': 11, 'Al': 27, 'Ga': 70, 'In': 115, 'Tl': 204, 'Nh': 284, 
-		'C': 12, 'Si': 28, 'Ge': 73, 'Sn': 119, 'Pb': 207, 'Fl': 289, 
-		'N': 14, 'P': 31, 'As': 75, 'Sb': 122, 'Bi': 209, 'Mc': 288, 
-		'O': 16, 'S': 32, 'Se': 79, 'Te': 128, 'Po': 209, 'Lv': 293, 
-		'F': 19, 'Cl': 35.5, 'Br': 80, 'I': 127, 'At': 210, 'Ts': 294, 
+
+	table = {'H': 1, 'Li': 7, 'Na': 23, 'K': 39, 'Rb': 85, 'Cs': 133, 'Fr': 223,
+		'Be': 9, 'Mg': 24, 'Ca': 40, 'Sr': 88, 'Ba': 137, 'Ra': 226,
+		'Sc': 45, 'Y': 89, 'La': 139, 'Ac': 227,
+		'Ti': 48, 'Zr': 91, 'Hf': 178, 'Rf': 265,
+		'V': 51, 'Nb': 93, 'Ta': 181, 'Db': 268,
+		'Cr': 52, 'Mo': 96, 'W': 184, 'Sg': 271,
+		'Mn': 55, 'Tc': 98, 'Re': 186, 'Bh': 272,
+		'Fe': 56, 'Ru': 101, 'Os': 190, 'Hs': 270,
+		'Co': 59, 'Rh': 103, 'Ir': 192, 'Mt': 276,
+		'Ni': 59, 'Pd': 106, 'Pt': 195, 'Ds': 281,
+		'Cu': 64, 'Ag': 108, 'Au': 197, 'Rg': 280,
+		'Zn': 65, 'Cd': 112, 'Hg': 201, 'Cn': 285,
+		'B': 11, 'Al': 27, 'Ga': 70, 'In': 115, 'Tl': 204, 'Nh': 284,
+		'C': 12, 'Si': 28, 'Ge': 73, 'Sn': 119, 'Pb': 207, 'Fl': 289,
+		'N': 14, 'P': 31, 'As': 75, 'Sb': 122, 'Bi': 209, 'Mc': 288,
+		'O': 16, 'S': 32, 'Se': 79, 'Te': 128, 'Po': 209, 'Lv': 293,
+		'F': 19, 'Cl': 35.5, 'Br': 80, 'I': 127, 'At': 210, 'Ts': 294,
 		'He': 4, 'Ne': 20, 'Ar': 40, 'Kr': 84, 'Xe': 131, 'Rn': 222, 'Og': 294,
-		'Ce': 140, 'Pr': 141, 'Nd': 144, 'Pm': 145, 'Sm': 150, 'Eu': 152, 'Gd': 157, 
-		'Tb': 159, 'Dy': 162, 'Ho': 165, 'Er': 167, 'Tm': 169, 'Yb': 173, 'Lu': 175, 
-		'Th': 232, 'Pa': 231, 'U': 238, 'Np': 237, 'Pu': 244, 'Am': 243, 'Cm': 247, 
+		'Ce': 140, 'Pr': 141, 'Nd': 144, 'Pm': 145, 'Sm': 150, 'Eu': 152, 'Gd': 157,
+		'Tb': 159, 'Dy': 162, 'Ho': 165, 'Er': 167, 'Tm': 169, 'Yb': 173, 'Lu': 175,
+		'Th': 232, 'Pa': 231, 'U': 238, 'Np': 237, 'Pu': 244, 'Am': 243, 'Cm': 247,
 		'Bk': 247, 'Cf': 251, 'Es': 252, 'Fm': 257, 'Md': 258, 'No': 259, 'Lr': 262}
-	
+
 	cp = re.sub(r'([A-Z()\[\]*])', r' \1', cp)[1:]
 	ls = cp.split()
 	m = [0, 0, 0, 0]
@@ -183,26 +183,26 @@ class AttributeSet:
 
 class Unit:
 	"""The creation of the Unit object and the related functionality."""
-	
+
 	standart_units = ['m', 's', 'kg']
-	
+
 	class InvalidOperationError(ArithmeticError):
 		pass
-	
+
 	def __init__(self, value, units):
 		"""The initialiser for the class.
-		
+
 		Arguments:
 		value -- a number representing the numeric value of a quantity
 		units -- a dictionary that matches units and their powers
 		"""
 		self.units = units
 		self.value = value
-	
+
 	@classmethod
 	def usr_init(cls, *args):
 		"""Get a Unit without using a dictionary.
-		
+
 		>>> Unit.usr_init(5, 'm')
 		Unit(5 m)
 		"""
@@ -219,7 +219,7 @@ class Unit:
 		if ansdict == {}:
 			return ansnum
 		return cls(ansnum, ansdict)
-	
+
 	def __str__(self):
 		ans = ''
 		for u in list(self.units):
@@ -229,7 +229,7 @@ class Unit:
 				ans += '^' + str(power)
 			ans += '*'
 		return ans[:-1]
-	
+
 	def smart_str(self, mode=0):
 		"""Transform a unit into a string according to mode."""
 		if min(self.units[u] for u in self.units) < 0:
@@ -246,18 +246,18 @@ class Unit:
 			return self.len_str()
 		else:
 			return numberform(self.value) + ' ' + str(self)
-	
+
 	def convert(self, n, exp):
 		"""Calculate n * 10^exp."""
 		return remove_exponent(n * Dec('1e' + str(-exp)))
-	
+
 	def compare(self, n, exp):
 		"""Check if n is between 0.5 * 10^exp and 500 * 10^exp."""
 		return Dec('0.5e'+str(exp)) < abs(n) <= Dec('500e'+str(exp))
-	
+
 	def find_exponent(self, value, units):
 		"""Transform value to the first close unit in units.
-		
+
 		Arguments:
 		value -- the value to be transformed
 		units -- a tuple of tuples (exponent, name)
@@ -270,7 +270,7 @@ class Unit:
 		else:
 			l = math.floor(math.log10(abs(value)))
 			return str(self.convert(value, l)) + ' ' + units[0][1]
-	
+
 	def fract_str(self, mode):
 		"""Represent the unit as a fraction."""
 		num_ls = []
@@ -297,7 +297,7 @@ class Unit:
 		denom += ' ' * ((l - len(denom) + 1) // 2)
 		main += '╶' + '─' * (l - 2) + '╴'
 		return (num, main, denom)
-	
+
 	def time_str(self):
 		"""Transform time from seconds into a practical measuring system."""
 		ans = ''
@@ -308,7 +308,7 @@ class Unit:
 		minute, second = 60000, 1000
 		name_of = {year: 'year', day: 'day', hour: 'h'}
 		name_of |= {minute: 'min', second: 's'}
-		
+
 		for period in (year, day, hour, minute, second):
 			if v >= period:
 				a = v // period
@@ -319,9 +319,9 @@ class Unit:
 				v %= period
 		if v != 0:
 			ans += str(v) + ' ms '
-		
+
 		return ans[:-1]
-	
+
 	def mass_str(self):
 		"""Transform mass into a practical measuring system."""
 		ans = ''
@@ -333,7 +333,7 @@ class Unit:
 			return str(self.convert(v, -3)) + ' g'
 		else:
 			return self.find_exponent(v, units)
-	
+
 	def len_str(self):
 		"""Transform length into a practical measuring system."""
 		ans = ''
@@ -349,14 +349,14 @@ class Unit:
 			return str(self.convert(v, l)) + f' * 10^{l} km'
 		else:
 			return self.find_exponent(v, units)
-	
+
 	def getpow(self, u):
 		"""Return the power in which unit u is present in the object."""
 		try:
 			return self.units[u]
 		except KeyError:
 			return 0
-	
+
 	def __mul__(self, other):
 		if type(other) == type(self):
 			su = list(self.units | other.units)
@@ -373,7 +373,7 @@ class Unit:
 			else:
 				oth = other
 			return type(self)(self.value * oth, self.units)
-	
+
 	def __truediv__(self, other):
 		if type(other) == type(self):
 			su = list(self.units | other.units)
@@ -390,74 +390,74 @@ class Unit:
 			else:
 				oth = other
 			return type(self)(self.value / oth, self.units)
-		
+
 	def __pos__(self):
 		return type(self)(self.value, self.units)
-	
+
 	def __add__(self, other):
 		if type(other) is type(self):
 			if self.units == other.units:
 				return type(self)(self.value + other.value, self.units)
 		raise Unit.InvalidOperationError('cannot add different units')
-	
+
 	def __neg__(self):
 		return type(self)(-self.value, self.units)
-	
+
 	def __sub__(self, other):
 		if type(other) is type(self):
 			if self.units == other.units:
 				return type(self)(self.value - other.value, self.units)
 		raise Unit.InvalidOperationError('cannot substract different units')
-	
+
 	def __rmul__(self, other):
 		return self * other
-	
+
 	def __rtruediv__(self, other):
 		return other * Unit(1, {}) / self
-	
+
 	def __radd__(self, other):
 		raise TypeError('cannot add different units')
-	
+
 	def __rsub__(self, other):
 		raise TypeError('cannot add different units')
-	
+
 	def __round__(self, num):
 		return type(self)(round(self.value, num), self.units)
-	
+
 	def __pow__(self, other, opt=None):
 		if type(other) in [int, Dec]:
 			ansunit = {a: self.units[a] * other for a in list(self.units)}
 			return type(self)(self.value ** other, ansunit)
 		else:
 			raise Unit.InvalidOperationError('cannot raise to a (unit) power')
-	
+
 	def __repr__(self):
 		if self.value == 1:
 			return f'Unit({str(self)})'
 		return f'Unit({str(self.value)}, {str(self)})'
-	
+
 	def si_units():
 		"""Return a dictionary with units of SI."""
-		
+
 		# ways to initialise units
 		one = lambda a: Unit.usr_init(Dec(1), a)
 		derived = lambda a: Unit(Dec(1), a)
 		U = Unit.usr_init
-		
+
 		unitdict = dict()  # store defined units here
 		prefixlist = ['', 'da', 'h', 'k', '$', '$', 'M', '$', '$', 'G']
 		prefixlist += ['n', '$', '$', 'μ', '$', '$', 'm', 'c', 'd']
-		
+
 		def add_units(u, name, explist=[9, 6, 3, 0, -3, -6, -9]):
 			nonlocal unitdict
 			for exp in explist:
 				u2 = u * Dec('1e' + str(exp))
 				name2 = prefixlist[exp] + name
 				unitdict |= {name2: u2}
-		
+
 		gramm = U(Dec('1e-3'), 'kg')
 		tonne = U(Dec('1e3'), 'kg')
-		
+
 		add_units(gramm, 'g', [3, 0, -3, -6, -9])
 		add_units(tonne, 't', [9, 6, 3, 0])
 		add_units(one('m'), 'm', [3, 0, -1, -2, -3, -6, -9])
@@ -465,7 +465,7 @@ class Unit:
 		add_units(one('A'), 'A')
 		add_units(one('K'), 'K')
 		add_units(one('mol'), 'mol')
-		
+
 		litre = Unit(Dec('1e-3'), {'m': 3})
 		herz = derived({'s': -1})
 		newton = derived({'kg': 1, 'm': 1, 's': -2})
@@ -477,7 +477,7 @@ class Unit:
 		ohm = derived({'kg': 1, 'm': 2, 's': -3, 'A': -2})
 		becquerrel = derived({'s': -1})
 		gray = derived({'m': 2, 's': -1})
-		
+
 		add_units(litre, 'l', [0, -3])
 		add_units(herz, 'Hz')
 		add_units(newton, 'N')
@@ -489,18 +489,18 @@ class Unit:
 		add_units(ohm, 'Ω')
 		add_units(becquerrel, 'Bq')
 		add_units(gray, 'Gy')
-		
+
 		unitdict |= {'min': U(Dec(60), 's'), 'h': U(Dec(3600), 's')}
-		
+
 		return unitdict
 
 
 class Angle(Unit):
 	"""The creation of the Angle object and the related functionality."""
-	
+
 	def usr_init(value, deg=False):
 		"""Get an Angle without using a dictionary.
-		
+
 		>>> Angle.usr_init(5)
 		Angle(5)
 		>>> Angle.usr_init(1, 'deg')
@@ -510,35 +510,35 @@ class Angle(Unit):
 			return Angle(value / Dec(180) * gl_pi, {'ang': 1})
 		else:
 			return Angle(value, {'ang': 1})
-		
+
 	def init(self):
 		"""Change the angle if it is bigger than 2pi to equivalent."""
 		v = self.value
 		while v > 6 and v >= gl_pi * 2:
 			v -= self.pi * 2
 		self.value = v
-		
+
 	def degree(self):
 		"""Return the value of the angle in degrees."""
 		return round(self.value * Dec(180) / gl_pi, gl_prec)
-	
+
 	def pirad(self):
 		"""Return the ratio between the angle and pi."""
 		return round(gl_pi / self.value, gl_prec)
-	
+
 	def __str__(self):
 		return str(self.value)
-	
+
 	def __repr__(self):
 		return 'Angle(' + str(round(self.value, 4)) + ')'
-	
+
 	def get_value(self):
 		"""Return the value of the angle in radians."""
 		if type(self) is Angle:
 			return self.value
 		else:
 			return Dec(self)
-	
+
 	def cos(self):
 		"""Return the cosine of the angle."""
 		if type(self) is Dec:
@@ -555,7 +555,7 @@ class Angle(Unit):
 			s += num / fact * sign
 		decimal.getcontext().prec -= 2
 		return +s
-	
+
 	def sin(self):
 		"""Return the sine of the angle."""
 		if type(self) is Dec:
@@ -572,27 +572,27 @@ class Angle(Unit):
 			s += num / fact * sign
 		decimal.getcontext().prec -= 2
 		return +s
-	
+
 	def tg(self):
 		"""Return the tangene of the angle."""
 		if type(self) is Dec:
 			self = Angle.usr_init(self)
 		return self.sin() / self.cos()
-	
+
 	def ctg(self):
 		"""Return the cotangene of the angle."""
 		if type(self) is Dec:
 			self = Angle.usr_init(self)
 		return self.cos() / self.sin()
-	
+
 	def arcsin(x):
 		"""Return an angle with given sine."""
 		return Angle(Dec(math.asin(x)), {'ang': 1})
-	
+
 	def arccos(x):
 		"""Return an angle with given cosine."""
 		return Angle(Dec(math.acos(x)), {'ang': 1})
-	
+
 	def arctg(x):
 		"""Return an angle with given tangene."""
 		return Angle(Dec(math.atan(x)), {'ang': 1})
@@ -600,7 +600,7 @@ class Angle(Unit):
 
 class Operator(Enum):
 	"""Operator objects and the related functionality."""
-	
+
 	# NAME = (calc, pref, arg_num, left)
 	PLUS = (lambda a, b: a + b, 0, 2, 0)
 	MINUS = (lambda a, b: a - b, 0, 2, 0)
@@ -612,9 +612,9 @@ class Operator(Enum):
 	POW = (lambda a, b: sum(a ** b) if isinstance(a, np.ndarray) else a ** b, 3, 2, 1)
 	NEG = (lambda x: x.__neg__(), 3, 1, 1)
 	FRBAR = (lambda a, b: a / b, 4, 2, 0)
-	
+
 	SEMICOLON = (lambda a: a, -1, 1, 1)
-	
+
 	SIN = (Angle.sin, 2, 1, 1)
 	COS = (Angle.cos, 2, 1, 1)
 	TG = (Angle.tg, 2, 1, 1)
@@ -626,27 +626,27 @@ class Operator(Enum):
 	ANGLE = (Angle.usr_init, 2, 1, 1)
 	LN = (Dec.ln, 2, 1, 1)
 	PF = (prime_fact_show, 2, 1, 1)
-	
+
 	SINPOW = (lambda a, b: Angle.sin(b) ** a, 2, 2, 1)
 	COSPOW = (lambda a, b: Angle.cos(b) ** a, 2, 2, 1)
 	TGPOW = (lambda a, b: Angle.tg(b) ** a, 2, 2, 1)
 	CTGPOW = (lambda a, b: Angle.ctg(b) ** a, 2, 2, 1)
-	
+
 	MASS = (mass, 5, 1, 1)
 	UNIT = (Unit.usr_init, 5, 1, 1)
-	
+
 	FCTR = (fctr, 5, 1, 1)
 	R_FCTR = (fctr, 5, 1, 0)
 	C = (lambda g: C(g[0], g[1]), 5, 1, 1)
 	P = (lambda g: P(g[0], g[1]), 5, 1, 1)
-	
+
 	SUM = (sum, 5, 1, 1)
 	AVERAGE = (lambda g: 0 if len(g) == 0 else sum(g) / Dec(len(g)), 5, 1, 1)
 	NORM = (lambda g: sum(g**2) ** Dec('0.5'), 5, 1, 1)
-	
+
 	def __init__(self, calc, pref, arg_num, left):
 		"""The initialiser for the class.
-		
+
 		Arguments:
 		calc -- the function of the operator
 		pref -- a number 0-4 representing the operators preference
@@ -657,14 +657,14 @@ class Operator(Enum):
 		self.pref = pref
 		self.arg_num = arg_num
 		self.left = bool(left)
-	
+
 	def __repr__(self):
 		return self.name
 
 
 class Calculator:
 	"""The creation of the Calculator object and the related functionality."""
-	
+
 	operdict = {'+': Operator.PLUS,  '-': Operator.MINUS,
 				'*': Operator.MUL,   ':': Operator.DIV,
 				'^': Operator.POW,   '~': Operator.NEG,
@@ -681,7 +681,7 @@ class Calculator:
 				'tg_': Operator.TGPOW,   'ctg_': Operator.CTGPOW,
 				'tan_': Operator.TGPOW,  'cot_': Operator.CTGPOW,
 				'ln': Operator.LN,    'mass': Operator.MASS,
-				'comb': Operator.C,   'perm': Operator.P, 
+				'comb': Operator.C,   'perm': Operator.P,
 				'fctr': Operator.FCTR,'pf': Operator.PF,
 				'!': Operator.R_FCTR,
 				'unit': Operator.UNIT,'angle': Operator.ANGLE,
@@ -880,30 +880,30 @@ class Calculator:
 	"degrees     (DEG)          angle in degrees, rounded to 3 digits  ",
 	"pi/ang      (π:x)          a ratio between π radians and the angle",
 	"                                                                  "]
-	
+
 	funcpad = [[' ?', 'help'], ['^X', 'exit'],
 				['^N', 'new expression'], ['^P', 'parenthise all'],
-				['Shift-2', 'x^2'], ['Shift-3', 'x^3'], 
+				['Shift-2', 'x^2'], ['Shift-3', 'x^3'],
 				['Shift-4', 'x*10^y'], ['Shift-5', 'a°'],
 				["'+v", '√x'], ["'", 'greek'],
 				['/', 'fraction'], ['=', 'answer']]
-	
+
 	funcpad_greek = [['q:', 'θ'], ['w:', 'ω'], ['e:', 'ε'], ['r:', 'ρ'], ['t:', 'τ'],
 			['y:', 'ψ'], ['u:', 'υ'], ['i:', 'ι'], ['o:', 'ο'], ['p:', 'π'], ['a:', 'α'],
 			['s:', 'σ'], ['d:', 'δ'], ['f:', 'φ'], ['g:', 'γ'], ['h:', 'η'], ['k:', 'κ'],
 			['l:', 'λ'], ['z:', 'ζ'], ['x:', 'χ'], ['c:', 'ξ'], ['b:', 'β'], ['n:', 'ν'],
 			['m:', 'μ'], [';', 'ς'], ['', ''], ['v:', '√'], ['V:', '∛']]
-	
+
 	def __init__(self, stdscr):
 		"""The initialiser of the class.
-		
+
 		Arguments:
 		stdscr -- the terminal screen
 		"""
 		self.name = 'fractum'
 		self.version = '1.4 '
 		self.stln = ''
-		
+
 		# initialise the screen
 		self.scr = stdscr
 		self.line = 4
@@ -911,7 +911,7 @@ class Calculator:
 		self.new = True  # show welcome message
 		self.debug = False # show debug message
 		self.key = ''
-		
+
 		# initialise fractum's memory
 		U = Unit.usr_init
 		self.vars = {'x': Dec(10),      'Vm': Dec('22.4'),
@@ -919,30 +919,30 @@ class Calculator:
 			'c': Unit(Dec(299792458), {'m': 1, 's': -1})}
 		self.vals = {'π': gl_pi, 'e': gl_e} | Unit.si_units()
 		self.vals |= {'°': Angle.usr_init(1, 'degree')}
-		
+
 		# initialise the expression
 		self.mode = 'normal'
 		self.eqn = [' ']
 		self.ansmode = 0
-		
+
 		# initialise the cursor
 		curses.curs_set(2)
 		self.cursor_num = 1
 		self.cursor_tuple = (0, 1)
-		
+
 		# store rare symbols used in the calculator
 		self.chars = AttributeSet()
 		self.chars.bar = '─'     # opt: '-'
 		self.chars.edge_l = '╶'  # opt: '─', '-', ' '
 		self.chars.edge_r = '╴'  # opt: '─', '-', ' '
-		
+
 		# initialise keystroke input:
 		self.chem_mode = False  # capital letters input
 		# - keys to insert characters that aren't on the keyboard
 		self.hotkeys = {'@': '^2', '#': '^3', '$': ' * 10^', '%': '°'}
 		greek = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσςΤτΥυΦφΧχΨψΩω'
 		self.insert = {'q': 'θ', 'w': 'ω', 'e': 'ε', 'r': 'ρ', 't': 'τ',
-			'y': 'ψ', 'u': 'υ', 'i': 'ι', 'o': 'ο', 'p': 'π', 'a': 'α', 
+			'y': 'ψ', 'u': 'υ', 'i': 'ι', 'o': 'ο', 'p': 'π', 'a': 'α',
 			's': 'σ', 'd': 'δ', 'f': 'φ', 'g': 'γ', 'h': 'η', 'k': 'κ',
 			'l': 'λ', 'z': 'ζ', 'x': 'χ', 'c': 'ξ', 'b': 'β', 'n': 'ν',
 			'm': 'μ'}
@@ -951,7 +951,7 @@ class Calculator:
 		self.insert |= {'v': '√', 'V': '∛', ';': 'ς'}
 		# - keys to insert directly
 		self.keys = '0.,123456789()[]"*+-^!:; '
-		
+
 		# initialise the calculator's theme
 		self.txt_col = curses.COLOR_WHITE
 		self.backgr_col = curses.COLOR_BLACK
@@ -965,12 +965,12 @@ class Calculator:
 		curses.init_pair(3, self.style_col, self.backgr_col)
 		# - error color
 		curses.init_pair(4, self.error_col, self.backgr_col)
-		
+
 		# initialise the help text
 		self.helpline = 0
 		self.helppad = curses.newpad(len(Calculator.helptext), 70)
 		self.write_help()
-	
+
 	@property
 	def coordlist(self):
 		"""The positions of the expression pieces."""
@@ -996,13 +996,13 @@ class Calculator:
 			x += len(mainstr)
 			coordlist.append((-1, x + 1))
 		return coordlist
-	
+
 	def quit(self):
 		"""Exit the calculator."""
 		self.scr.clear()
 		self.scr.refresh()
 		sys.exit()
-	
+
 	def write_help(self):
 		self.helppad.attron(curses.color_pair(2))
 		def get_col_pair(string):
@@ -1015,7 +1015,7 @@ class Calculator:
 		for string in Calculator.helptext:
 			self.helppad.addstr(line, 1, string, get_col_pair(string))
 			line += 1
-	
+
 	def write_statusline(self):
 		"""Write the statusline string according to the situation."""
 		self.stln = ''
@@ -1036,7 +1036,7 @@ class Calculator:
 			self.stln = 'Up/Down: scroll,  any key: get back'
 		elif self.mode == 'final':
 			self.stln = 'Backspace: get back,  Space: answer form,  Enter: new,  any key: exit'
-	
+
 	def usr_input(self):
 		"""Wait for the user to press a key and analise it."""
 		key = self.scr.getkey()
@@ -1051,10 +1051,10 @@ class Calculator:
 			self.help_mode_read(key)
 		elif self.mode == 'final':
 			self.final_mode_read(key)
-	
+
 	def eqn_addstr(self, a, b, string):
 		"""Insert a string in the calculator's expression.
-		
+
 		Arguments:
 		a, b -- position of insertion
 		string -- the string to insert
@@ -1064,7 +1064,7 @@ class Calculator:
 		else:
 			self.eqn[a] = self.eqn[a][:b-1] + string + self.eqn[a][b-1:]
 		self.cursor_num += len(string)
-	
+
 	def command_read(self, key):
 		"""Run command by key."""
 		if len(key) != 1:
@@ -1099,7 +1099,7 @@ class Calculator:
 		else:
 			return False
 		return True
-	
+
 	def normal_mode_read(self, key):
 		"""Change the expression according to key for normal mode."""
 		a, b = self.cursor_tuple
@@ -1135,7 +1135,7 @@ class Calculator:
 		elif key == '=':
 			self.mode = 'final'
 		self.key = key
-	
+
 	def arrows_read(self, key):
 		"""Change cursor position according to key for normal mode."""
 		a, b = self.cursor_tuple
@@ -1158,10 +1158,10 @@ class Calculator:
 			self.ctrl_right_arrow(a, b)
 		elif key == 'kLFT5':  # Ctrl + KEY_LEFT
 			self.ctrl_left_arrow(a, b)
-	
+
 	def ctrl_right_arrow(self, a, b):
 		"""Change cursor position a number to the right.
-		
+
 		Arguments:
 		a, b -- initial position of cursor
 		"""
@@ -1171,7 +1171,7 @@ class Calculator:
 				while self.eqn[a][b+p-1] in smbs:
 					p += 1
 				self.cursor_num += p - 1
-		
+
 		if a % 3 == 0:
 			if b == len(self.eqn[a]):
 				if a != len(self.eqn) - 1:
@@ -1193,10 +1193,10 @@ class Calculator:
 		else:
 			self.cursor_num += len(self.eqn[a]) - b
 		self.cursor_num += 1
-	
+
 	def ctrl_left_arrow(self, a, b):
 		"""Change cursor position a number to the left.
-		
+
 		Arguments:
 		a, b -- initial position of cursor
 		"""
@@ -1208,7 +1208,7 @@ class Calculator:
 					p += 1
 				self.cursor_num -= p - 1
 				b -= p
-		
+
 		if a % 3 == 0:
 			if b == 1 and a != 0:
 				self.cursor_num -= len(self.eqn[a-1])
@@ -1227,7 +1227,7 @@ class Calculator:
 		else:
 			self.cursor_num -= len(self.eqn[a-1]) + b - 1
 		self.cursor_num -= 1
-	
+
 	def underscore(self):
 		"""Insert a 'forgotten' fraction bar in the expression."""
 		if len(self.eqn) % 3 == 1:
@@ -1238,7 +1238,7 @@ class Calculator:
 					self.eqn = self.eqn[:-1] + [part1, part2, ' ', ' ']
 					self.cursor_num += 2
 					break
-	
+
 	def backspace(self, a, b):
 		"""Delete the character before cursor."""
 		if b == 1:
@@ -1261,10 +1261,10 @@ class Calculator:
 		else:
 			self.eqn[a] = self.eqn[a][:b-2] + self.eqn[a][b-1:]
 			self.cursor_num -= 1
-	
+
 	def ctrl_backspace(self, a, b):
 		"""Delete the number before cursor."""
-		
+
 		def delword(smbs):
 			if self.eqn[a][b-2] in smbs:
 				p = 0
@@ -1280,7 +1280,7 @@ class Calculator:
 					part = [self.eqn[a][:b-p-1] + ' ' + self.eqn[a][b:]]
 					self.eqn = self.eqn[:a] + part + self.eqn[a+1:]
 					self.cursor_num -= p
-		
+
 		if b == 1:
 			# don't delete anything if cursor is on the 1-st char
 			if a == 0:
@@ -1321,7 +1321,7 @@ class Calculator:
 					self.cursor_num -= p
 			if a % 3 != 0:
 				self.cursor_num -= 1
-	
+
 	def insert_mode_read(self, key):
 		"""Insert a symbol according to key."""
 		a, b = self.cursor_tuple
@@ -1330,7 +1330,7 @@ class Calculator:
 		elif key == 'KEY_RESIZE':
 			return None
 		self.mode = 'normal'
-	
+
 	def help_mode_read(self, key):
 		"""Change position of the help text according to key."""
 		maxy, maxx = self.scr.getmaxyx()
@@ -1343,7 +1343,7 @@ class Calculator:
 		elif key != 'KEY_RESIZE':
 			self.mode = 'normal'
 			curses.curs_set(2)
-	
+
 	def final_mode_read(self, key):
 		"""Exit or return to normal mode according to key."""
 		if key in ['KEY_BACKSPACE', 'KEY_LEFT']:
@@ -1376,7 +1376,7 @@ class Calculator:
 			self.cursor_num = len(ans) + 3
 		elif key != 'KEY_RESIZE':
 			self.quit()
-	
+
 	def cursor_update(self):
 		"""Change the list cursor position according to it's number position."""
 		eq_len = sum([len(s) for s in self.eqn])
@@ -1392,27 +1392,27 @@ class Calculator:
 				self.cursor_tuple = (a, self.cursor_num - c)
 				return None
 			c += len(eq_str)
-	
+
 	def del_last_space(self, data):
 		"""Remove the last characters of strings in data.
-		
+
 		If data is a string, return it with the last character removed.
 		"""
 		if type(data) is str:
 			return data[:-1]
 		else:
 			return [string[:-1] for string in data]
-	
+
 	def printeq(self, y, x, msg, color=2):
 		"""Print a string on the screen.
-		
+
 		Arguments:
 		y, x -- position according to the expression start position
 		msg -- a string to print
 		color -- number of text's color_pair (default=2)
 		"""
 		self.scr.addstr(self.line + y, x, msg, curses.color_pair(color))
-	
+
 	def scr_update(self):
 		"""Update the calculator's screen."""
 		self.scr.clear()
@@ -1438,7 +1438,7 @@ class Calculator:
 			raise  # DEBUG
 			return None
 		self.scr.refresh()
-	
+
 	def print_title(self):
 		"""Print the calculator's title line on the screen."""
 		maxy, maxx = self.scr.getmaxyx()
@@ -1449,7 +1449,7 @@ class Calculator:
 			last = ''
 		title = ' ' * space + name + ' ' * space + last
 		self.scr.addstr(0, 0, title, curses.color_pair(1))
-	
+
 	def print_statusline(self):
 		"""Print the statusline on the screen."""
 		maxy, maxx = self.scr.getmaxyx()
@@ -1457,7 +1457,7 @@ class Calculator:
 		space = maxx - len(self.stln) - 1
 		stln = ' ' + self.stln + ' ' * space
 		self.scr.addstr(maxy - 3, 0, stln, curses.color_pair(1))
-	
+
 	def print_functions(self):
 		"""Print the keyboard shortcuts on the screen."""
 		maxy, maxx = self.scr.getmaxyx()
@@ -1489,10 +1489,10 @@ class Calculator:
 				lens.append(self.print_func(maxy - rows + t, x, s * rows + t, funcpad))
 		except IndexError:
 			pass
-	
+
 	def print_func(self, y, x, n, funcpad):
 		"""Print one keyboard shortcut on the screen.
-		
+
 		Arguments:
 		y, x -- position of the shortcut on the screen
 		n -- number of shortcut
@@ -1502,7 +1502,7 @@ class Calculator:
 		self.scr.addstr(y, x - 1, pf[0], curses.color_pair(3))
 		self.scr.addstr(y, x + len(pf[0]), pf[1], curses.color_pair(2))
 		return len(pf[0]) + len(pf[1])
-	
+
 	def print_answer_mode(self):
 		"""Print the answer mode switcher on the screen."""
 		if self.mode != 'final':
@@ -1530,16 +1530,16 @@ class Calculator:
 			modes = [' PREFIX ', 'NO-PREFIX', ' SIMPLE ']
 		elif type(ans) == Angle:
 			anstype = 'angle'
-			modes = [' DEG ', ' RAD ', ' π : RAD ']
+			modes = [' DEG ', ' RAD ', ' π:x RAD ']
 		else:
 			return None
-		
+
 		self.scr.addstr(1, 5, anstype, curses.color_pair(3))
 		x = 20
 		for a in range(3):
 			self.scr.addstr(1, x, modes[a], col_pair(a))
 			x += len(modes[a]) + 5
-	
+
 	def print_debug(self):
 		"""Print some extra info about the calculator's current state."""
 		maxy, maxx = self.scr.getmaxyx()
@@ -1553,7 +1553,7 @@ class Calculator:
 			self.scr.addstr(maxy - 8, 2, str(f'{k} {ord(self.key)}'))
 		except Exception:
 			pass
-	
+
 	def print_expression(self):
 		"""Print the expression on the calculator screen."""
 		p = self.del_last_space
@@ -1562,7 +1562,7 @@ class Calculator:
 			self.printeq(y, x, p(self.eqn[s]))
 			if y == 0 and s < len(self.coordlist) - 2:
 				self.print_fract_line(s)
-	
+
 	def print_fract_line(self, s):
 		"""Print the horisontal fraction bar with index s."""
 		p = self.del_last_space
@@ -1574,12 +1574,12 @@ class Calculator:
 		if numstr == '' and denomstr == '':
 			bar = self.chars.edge_l + self.chars.bar
 		self.printeq(y, x + len(mainstr), bar)
-	
+
 	def print_help(self):
 		"""Show the help text."""
 		maxy, maxx = self.scr.getmaxyx()
 		self.helppad.refresh(self.helpline, 0, 1, 0, maxy - 5, 70)
-	
+
 	def print_answer(self):
 		"""Print the answer on the screen."""
 		p = self.del_last_space
@@ -1596,7 +1596,7 @@ class Calculator:
 			self.printeq(0, x, ans[1:], color=4)
 		else:
 			self.printeq(0, x, ans, color=3)
-	
+
 	def print_error(self):
 		"""Print the display error text."""
 		self.scr.clear()
@@ -1605,7 +1605,7 @@ class Calculator:
 		msg += 'Making the screen bigger may also help, if possible.'
 		self.scr.addstr(msg, curses.color_pair(4))
 		self.scr.refresh()
-	
+
 	def move_cursor(self):
 		"""Move the cursor to it's assigned position."""
 		a, b = self.cursor_tuple
@@ -1616,7 +1616,7 @@ class Calculator:
 			#curses.curs_set(0)
 			self.scr.addstr("'")
 		self.scr.move(y, x)
-	
+
 	def check_names(self):
 		"""Check the expression for unknown names."""
 		words = re.findall('[a-z]+', ''.join(self.eqn))
@@ -1624,7 +1624,7 @@ class Calculator:
 			if word not in list(Calculator.operdict | self.vars | self.vals):
 				return word
 		return ''
-	
+
 	def check_parentheses(self):
 		"""Check the expression for unmatched parenthesses."""
 		ps = re.findall('[()]', ''.join(self.eqn))
@@ -1638,7 +1638,7 @@ class Calculator:
 			elif p == '(':
 				stack += 1
 		return stack == 0
-	
+
 	def check_sq_brackets(self):
 		"""Check the expression for unmatched square brackets."""
 		ps = re.findall(r'[\[\]]', ''.join(self.eqn))
@@ -1652,10 +1652,10 @@ class Calculator:
 			elif p == '[':
 				stack += 1
 		return stack == 0
-	
+
 	def simple_notation(self):
 		"""Transform the expression into a string.
-		
+
 		Output syntax:
 		+ - * : -- arithmetic operators
 		. -- decimal separator
@@ -1732,7 +1732,7 @@ class Calculator:
 		for s in strings:
 			line = re.sub(r'%', " '" + s[1:-1] + "'", line, count=1)
 		return line
-	
+
 	def infix_notation(self):
 		"""Transform the simple notation string into a list of tokens."""
 		line = self.simple_notation()
@@ -1757,7 +1757,7 @@ class Calculator:
 			elif ls[n-d] not in '()':
 				raise ValueError('unknown name: ' + ls[n-d])
 		return ls
-	
+
 	def postfix_notation(self):
 		"""Transform the infix notation into postfix notation."""
 		ls = self.infix_notation()
@@ -1787,7 +1787,7 @@ class Calculator:
 			elif type(token) is str:
 				output.append(token)
 		return output + oper_stack[::-1]
-	
+
 	def ans_calc(self):
 		"""Calculate the answer of current expression."""
 		line = self.simple_notation()
@@ -1846,20 +1846,34 @@ class Calculator:
 			return '$function domain error'
 		except decimal.Overflow:
 			return '$large number'
-	
+
 	def ans_get(self):
 		"""Test the result using various precisions."""
 		decimal.getcontext().prec -= 5
-		ans1 = self.ans_calc()
+		answer1 = self.ans_calc()
 		decimal.getcontext().prec += 5
-		ans2 = self.ans_calc()
-		try:
-			if abs(ans1 / ans2) > 2:
-				return round(1 + ans2, gl_prec) - 1
-			return ans2
-		except Exception:
-			return ans2
-	
+		answer2 = self.ans_calc()
+		
+		def match_ans(ans1, ans2):
+			anscls = type(ans1)
+			if anscls is str:
+				return ans2
+			elif anscls is Dec:
+				if ans2 != Dec(0) and abs(ans1 / ans2) > 2:
+					return round(1 + ans2, gl_prec) - 1
+				return ans2
+			elif anscls in (Unit, Angle):
+				if ans2.value != 0 and abs(ans1 / ans2) > 2:
+					return anscls(0)
+				return ans2
+			elif anscls is np.ndarray:
+				new = []
+				for el1, el2 in zip(ans1, ans2):
+					new.append(match_ans(el1, el2))
+				return np.array(new)
+		
+		return match_ans(answer1, answer2)
+
 	def ans_format(self, ans):
 		"""Transform ans to the required format."""
 		if type(ans) is Angle:
@@ -1871,7 +1885,10 @@ class Calculator:
 			elif self.ansmode == 1:  # 'RAD'
 				ans = str(ans)
 			elif self.ansmode == 2:  # 'PIRAD'
-				ans = 'π : ' + str(ans.pirad())
+				if ans.value == 0:
+					ans = '0 π'
+				else:
+					ans = 'π : ' + str(ans.pirad())
 		elif type(ans) is Unit:
 			return ans.smart_str(self.ansmode)
 		elif type(ans) is decimal.Decimal:
@@ -1902,7 +1919,7 @@ class Calculator:
 		else:
 			ans = '$incorrect answer type: ' + str(type(ans))
 		return ans
-	
+
 	def mainloop(self):
 		"""Interact with the user."""
 		while True:
