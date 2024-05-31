@@ -1088,7 +1088,6 @@ class Calculator:
 			self.mode = 'normal'
 			self.ansmode = 0
 			self.eqn = [' ']
-			self.coordlist = [(0, self.col)]
 		else:
 			return False
 		return True
