@@ -409,7 +409,7 @@ class Unit:
 		return self * other
 
 	def __rtruediv__(self, other):
-		return other * Unit(1, {}) / self
+		return other * type(self)(1, {}) / self
 
 	def __radd__(self, other):
 		raise TypeError('cannot add different units')
@@ -1832,8 +1832,8 @@ class Calculator:
 		except Unit.InvalidOperationError as ex:
 			return '$' + str(ex)
 		except ZeroDivisionError as ex:
-			return '$division by zero: ' + str(ex)
-		except decimal.InvalidOperation:
+			return '$division by zero: x/0'
+		except decimal.InvalidOperation as ex:
 			return '$function domain error'
 		except decimal.Overflow:
 			return '$large number'
