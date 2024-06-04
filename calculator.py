@@ -1112,11 +1112,9 @@ class Calculator:
 		elif key == "'":
 			self.mode = 'insert'
 		elif key in '\n\\':
-			if a == len(self.eqn) - 1:
-				self.mode = 'final'
-			elif self.eqn[a + 1] == ' ':
+			if a + 1 < len(self.eqn) and self.eqn[a + 1] == ' ':
 				self.cursor_num += len(self.eqn[a]) - b + 1
-			elif self.eqn[a + 2] == ' ':
+			elif a + 2 < len(self.eqn) and self.eqn[a + 2] == ' ':
 				self.cursor_num += len(self.eqn[a]) + len(self.eqn[a+1]) - b + 1
 			else:
 				self.mode = 'final'
