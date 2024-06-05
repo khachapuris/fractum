@@ -621,7 +621,6 @@ class Operator(Enum):
 	ARCCOS = (Angle.arccos, 2, 1, 1)
 	ARCTG = (Angle.arctg, 2, 1, 1)
 	ABS = (abs, 2, 1, 1)
-	ANGLE = (Angle.usr_init, 2, 1, 1)
 	LN = (Dec.ln, 2, 1, 1)
 	PF = (prime_fact_show, 2, 1, 1)
 
@@ -668,7 +667,7 @@ class Calculator:
 				'^': Operator.POW,   '~': Operator.NEG,
 				'√': Operator.SQRT,  '∛': Operator.CBRT,
 				'/': Operator.FRBAR, '@': Operator.SPACE,
-				';': Operator.SEMICOLON,
+				'!': Operator.R_FCTR,';': Operator.SEMICOLON,
 				'sin': Operator.SIN, 'arcsin': Operator.ARCSIN,
 				'cos': Operator.COS, 'arccos': Operator.ARCCOS,
 				'tg': Operator.TG,   'arctg': Operator.ARCTG,
@@ -681,8 +680,7 @@ class Calculator:
 				'ln': Operator.LN,    'mass': Operator.MASS,
 				'comb': Operator.C,   'perm': Operator.P,
 				'fctr': Operator.FCTR,'pf': Operator.PF,
-				'!': Operator.R_FCTR,
-				'unit': Operator.UNIT,'angle': Operator.ANGLE,
+				'unit': Operator.UNIT,
 				'sum': Operator.SUM,  'average': Operator.AVERAGE,
 				'norm': Operator.NORM}
 	oper_regexp = r'+\-*:^~√∛/@$'
