@@ -487,6 +487,7 @@ class Unit:
 		add_units(gray, 'Gy')
 
 		unitdict |= {'min': U(Dec(60), 's'), 'h': U(Dec(3600), 's')}
+		unitdict |= {'rad': Angle.usr_init(Dec(1))}
 
 		return unitdict
 
@@ -741,7 +742,7 @@ class Calculator:
 	"To type in an angle as an argument of a function, you can use     ",
 	"radians or degrees; for example (sin 0.2618) and (sin 15°). The   ",
 	"degree sign is entered with the '%' key. If you want to input an  ",
-	"angle in radians outside of a function, use (angle(x)). Because   ",
+	"angle in radians outside of a function, use (x rad). Because      ",
 	"angle is a special case of unit values, the same operations are   ",
 	"available; angles can be arguments for trigonometric functions.   ",
 	"                                                                  ",
