@@ -513,16 +513,20 @@ class Angle(Unit):
 		"""Change the angle if it is bigger than 2pi to equivalent."""
 		v = self.value
 		while v > 6 and v >= gl_pi * 2:
-			v -= self.pi * 2
+			v -= gl_pi * 2
 		self.value = v
 
 	def degree(self):
 		"""Return the value of the angle in degrees."""
-		return round(self.value * Dec(180) / gl_pi, gl_prec)
+		ans = self.value * Dec(180) / gl_pi
+		r1, r2 = round(ans), round(ans, gl_prec)
+		return (r1 if r1 == r2 else r2)
 
 	def pirad(self):
 		"""Return the ratio between the angle and pi."""
-		return round(gl_pi / self.value, gl_prec)
+		ans = gl_pi / self.value
+		r1, r2 = round(ans), round(ans, gl_prec)
+		return (r1 if r1 == r2 else r2)
 
 	def __str__(self):
 		return str(self.value)
@@ -874,7 +878,7 @@ class Calculator:
 	"{form}      {symbol}       {answer representation}                ",
 	"radians     (RAD)          angle in radians                       ",
 	"degrees     (DEG)          angle in degrees, rounded to 3 digits  ",
-	"pi/ang      (π:x)          a ratio between π radians and the angle",
+	"pi/ang      (π:x RAD)      a ratio between π radians and the angle",
 	"                                                                  "]
 
 	funcpad = [[' ?', 'help'], ['^X', 'exit'],
@@ -1874,9 +1878,17 @@ class Calculator:
 				ans = str(ans)
 			elif self.ansmode == 2:  # 'PIRAD'
 				if ans.value == 0:
-					ans = '0 π'
+					ans = '0 rad'
 				else:
-					ans = 'π : ' + str(ans.pirad())
+					num = 'π'
+					denom = str(ans.pirad())
+					l = (max(len(num), len(denom)) + 2)
+					num = ' ' * ((l - len(num)) // 2) + num
+					num += ' ' * ((l - len(num) + 1) // 2)
+					denom = ' ' * ((l - len(denom)) // 2) + denom
+					denom += ' ' * ((l - len(denom) + 1) // 2)
+					main = '╶' + '─' * (l - 2) + '╴rad'
+					ans = (num, main, denom)
 		elif type(ans) is Unit:
 			return ans.smart_str(self.ansmode)
 		elif type(ans) is decimal.Decimal:
