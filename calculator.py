@@ -1428,7 +1428,7 @@ class Calculator:
 			self.move_cursor()
 		except Exception:
 			self.print_error()
-			raise  # DEBUG
+			#raise  # DEBUG
 			return None
 		self.scr.refresh()
 
